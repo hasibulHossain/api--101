@@ -1,8 +1,7 @@
 const path = require('path');
 const fs = require('fs-extra');
 const rootPath = require('./rootPath');
-
-module.exports = dltImage = (imgName) => {
+const dltImage = (imgName) => {
     const imgPath = path.join(rootPath, 'uploads', imgName);
 
     fs.unlink(imgPath)
@@ -13,3 +12,6 @@ module.exports = dltImage = (imgName) => {
             console.log('delete image => ', err);
         })
 }
+
+
+module.exports = dltImage;

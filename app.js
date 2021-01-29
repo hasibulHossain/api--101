@@ -6,13 +6,14 @@ const { v4: uuid } = require('uuid')
 const multer = require('multer')
 const feedRoutes = require('./routes/feed');
 const authRoutes = require('./routes/auth');
+require('dotenv').config();
 
 const Post = require('./models/post');
 
 const app = express();
 
 const MONGODB_URI =
-    "mongodb+srv://hasib:9212512345hH@cluster0.n3pys.mongodb.net/socialApp?retryWrites=true&w=majority";
+    `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@cluster0.n3pys.mongodb.net/socialApp?retryWrites=true&w=majority`;
 
 const fileStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -85,7 +86,8 @@ mongoose.set("useUnifiedTopology", true);
 mongoose
     .connect(MONGODB_URI)
     .then((_) => {
-        app.listen(8080);
+        const port = process.env.PORT || 3000
+        app.listen(port);
     })
     .catch((err) => {
         console.log(Error(`mongooseConnect ${err}`));
